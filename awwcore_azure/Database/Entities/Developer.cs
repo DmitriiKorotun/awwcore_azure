@@ -9,28 +9,26 @@ namespace awwcore_azure.Database.Entities
 {
     [Table("developers")]
     public class Developer
-    {
-        [Column("id")]
+    {        
         private int id;
+        [Column("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        private string name;
         [Column("name")]
         [Required]
-        private string name;
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
-
-
-        [Column("website")]
-        [Required]
+       
         private string website;
+        [Column("website")]
         public string Website
         {
             get { return website; }

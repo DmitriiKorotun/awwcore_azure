@@ -36,6 +36,8 @@ namespace awwcore_azure.Database.Interface
             {
                 eb.HasNoKey();
             });
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

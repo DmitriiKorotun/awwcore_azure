@@ -9,79 +9,79 @@ namespace awwcore_azure.Database.Entities
 {
     [Table("games")]
     public class Game
-    {
-        [Column("id")]
+    {        
         private int id;
+        [Column("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        private int publisherId;
         [Column("publisher_id")]
         [Required]
-        private int publisherId;
         public int PublisherId
         {
             get { return publisherId; }
             set { publisherId = value; }
         }
 
+        private int developerId;
         [Column("developer_id")]
         [Required]
-        private int developerId;
         public int DeveloperId
         {
             get { return developerId; }
             set { developerId = value; }
         }
 
+        private string name;
         [Column("name")]
         [Required]
-        private string name;
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
+        private string description;
         [Column("description")]
         [Required]
-        private string description;
         public string Description
         {
             get { return description; }
             set { description = value; }
         }
 
+        private DateTime releaseDate;
         [Column("release_date")]
         [Required]
-        private DateTime releaseDate;
         public DateTime ReleaseDate
         {
             get { return releaseDate; }
             set { releaseDate = value; }
         }
 
-        [Column("announcement_date")]
-        [Required]
         private DateTime announcementDate;
+        [Column("announcment_date")]
+        [Required]
         public DateTime AnnouncementDate
         {
             get { return announcementDate; }
             set { announcementDate = value; }
         }
-
-        [ForeignKey("PublisherId")]
+       
         private Publisher publisher;
+        [ForeignKey("PublisherId")]
         public Publisher Publisher
         {
             get { return publisher; }
             set { publisher = value; }
         }
-
-        [ForeignKey("DeveloperId")]
+       
         private Developer developer;
+        [ForeignKey("DeveloperId")]
         public Developer Developer
         {
             get { return developer; }

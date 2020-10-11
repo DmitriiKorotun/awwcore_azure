@@ -9,18 +9,18 @@ namespace awwcore_azure.Database.Entities
 {
     [Table("genres")]
     public class Genre
-    {
-        [Column("id")]
+    {       
         private int id;
+        [Column("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
+        private string name;
         [Column("name")]
         [Required]
-        private string name;
         public string Name
         {
             get { return name; }

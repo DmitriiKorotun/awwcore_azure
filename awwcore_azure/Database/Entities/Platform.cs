@@ -18,9 +18,9 @@ namespace awwcore_azure.Database.Entities
             set { id = value; }
         }
 
+        private string name;
         [Column("name")]
         [Required]
-        private string name;
         public string Name
         {
             get { return name; }

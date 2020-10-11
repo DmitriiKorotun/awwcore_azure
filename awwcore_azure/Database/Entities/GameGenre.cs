@@ -10,34 +10,34 @@ namespace awwcore_azure.Database.Entities
     [Table("game_genres")]
     public class GameGenre
     {
+        private int gameId;
         [Column("game_id")]
         [Required]
-        private int gameId;
         public int GameId
         {
             get { return gameId; }
             set { gameId = value; }
         }
 
+        private int genreId;
         [Column("genre_id")]
         [Required]
-        private int genreId;
         public int GenreId
         {
             get { return genreId; }
             set { genreId = value; }
         }
-
-        [ForeignKey("GameId")]
+        
         private Game game;
+        [ForeignKey("GameId")]
         public Game Game
         {
             get { return game; }
             set { game = value; }
         }
-
-        [ForeignKey("GenreId")]
+       
         private Genre genre;
+        [ForeignKey("GenreId")]
         public Genre Genre
         {
             get { return genre; }

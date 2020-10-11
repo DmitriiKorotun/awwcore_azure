@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using awwcore_azure.Database.Entities;
 using awwcore_azure.Database.Interface;
+using awwcore_azure.Database;
 
 namespace awwcore_azure.Controllers
 {
@@ -16,9 +17,11 @@ namespace awwcore_azure.Controllers
     {
         private readonly GameReviewsContext _context;
 
-        public LanguagesController(GameReviewsContext context)
+        public LanguagesController(GameReviewsContext context, DataGenerator dataGenerator)
         {
             _context = context;
+
+            new DataGenerator(context).GenerateGenres();
         }
 
         // GET: api/Languages

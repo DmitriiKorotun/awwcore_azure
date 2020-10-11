@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using awwcore_azure.Database;
 using awwcore_azure.Database.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +31,9 @@ namespace awwcore_azure
             services.AddControllers();
 
             services.AddDbContext<GameReviewsContext>(opt =>
-               opt.UseInMemoryDatabase("TodoList"));
+               opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<DataGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

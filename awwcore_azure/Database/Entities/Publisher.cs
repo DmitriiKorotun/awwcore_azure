@@ -29,7 +29,6 @@ namespace awwcore_azure.Database.Entities
 
 
         [Column("website")]
-        [Required]
         private string website;
         public string Website
         {
