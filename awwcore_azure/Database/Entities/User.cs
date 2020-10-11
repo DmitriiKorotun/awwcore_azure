@@ -20,6 +20,7 @@ namespace awwcore_azure.Database.Entities
 
         private string name;
         [Column("name")]
+        [MaxLength(50)]
         [Required]
         public string Name
         {

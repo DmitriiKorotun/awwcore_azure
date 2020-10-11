@@ -48,6 +48,7 @@ namespace awwcore_azure.Database.Entities
 
         private string name;
         [Column("name")]
+        [MaxLength(50)]
         [Required]
         public string Name
         {
@@ -57,6 +58,7 @@ namespace awwcore_azure.Database.Entities
 
         private string text;
         [Column("text")]
+        [MaxLength(1500)]
         [Required]
         public string Text
         {
