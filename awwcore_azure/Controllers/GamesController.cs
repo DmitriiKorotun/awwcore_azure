@@ -25,14 +25,19 @@ namespace awwcore_azure.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> GetGames()
         {
-            return await _context.Games.ToListAsync();
+            return await _context.Games.Include(g => g.Publisher)
+                .Include(g => g.Developer)
+                .ToListAsync();
         }
 
         // GET: api/Games/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Game>> GetGame(int id)
         {
-            var game = await _context.Games.FindAsync(id);
+            var game = await _context.Games.Where(g => g.ID == id)
+                .Include(g => g.Publisher)
+                .Include(g => g.Developer)
+                .FirstOrDefaultAsync();
 
             if (game == null)
             {

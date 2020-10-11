@@ -25,7 +25,9 @@ namespace awwcore_azure.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GameGenre>>> GetGameGenres()
         {
-            return await _context.GameGenres.ToListAsync();
+            return await _context.GameGenres.Include(gg => gg.Game)
+                .Include(gg => gg.Genre)
+                .ToListAsync();
         }
 
         // GET: api/GameGenres/5
@@ -33,6 +35,8 @@ namespace awwcore_azure.Controllers
         public async Task<ActionResult<IEnumerable<GameGenre>>> GetGameGenres(int gameId)
         {
             var GameGenre = await _context.GameGenres.Where(gg => gg.GameId == gameId)
+                .Include(gg => gg.Game)
+                .Include(gg => gg.Genre)
                 .ToListAsync();
 
             if (GameGenre == null || GameGenre.Count < 1)

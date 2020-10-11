@@ -25,14 +25,21 @@ namespace awwcore_azure.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            return await _context.Reviews.Include(r => r.User)
+                .Include(r => r.Game)
+                .Include(r => r.Language)
+                .ToListAsync();
         }
 
         // GET: api/Reviews/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Review>> GetReview(int id)
         {
-            var review = await _context.Reviews.FindAsync(id);
+            var review = await _context.Reviews.Where(r => r.ID == id)
+                .Include(r => r.User)
+                .Include(r => r.Game)
+                .Include(r => r.Language)
+                .FirstOrDefaultAsync();
 
             if (review == null)
             {

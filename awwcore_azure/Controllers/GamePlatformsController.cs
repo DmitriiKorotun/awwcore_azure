@@ -25,7 +25,9 @@ namespace awwcore_azure.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<GamePlatform>>> GetGamePlatforms()
         {
-            return await _context.GamePlatforms.ToListAsync();
+            return await _context.GamePlatforms.Include(gp => gp.Game)
+                .Include(gp => gp.Platform)
+                .ToListAsync();
         }
 
         // GET: api/GamePlatforms/5
@@ -33,6 +35,8 @@ namespace awwcore_azure.Controllers
         public async Task<ActionResult<IEnumerable<GamePlatform>>> GetGamePlatforms(int gameId)
         {
             var GamePlatform = await _context.GamePlatforms.Where(gg => gg.GameId == gameId)
+                .Include(gp => gp.Game)
+                .Include(gp => gp.Platform)
                 .ToListAsync();
 
             if (GamePlatform == null || GamePlatform.Count < 1)
