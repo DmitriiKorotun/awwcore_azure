@@ -18,13 +18,16 @@ namespace awwcore_azure.Database.Entities
             set { id = value; }
         }
 
-        [Column("name")]
-        [Required]
         private string name;
+        [Column("name")]
+        [MaxLength(25)]
+        [Required]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
+
+        public List<GamePlatform> GamePlatforms { get; set; }
     }
 }

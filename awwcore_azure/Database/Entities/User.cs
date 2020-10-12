@@ -9,27 +9,28 @@ namespace awwcore_azure.Database.Entities
 {
     [Table("users")]
     public class User
-    {
-        [Column("id")]
+    {       
         private int id;
+        [Column("id")]
         public int ID
         {
             get { return id; }
             set { id = value; }
         }
 
-        [Column("name")]
-        [Required]
         private string name;
+        [Column("name")]
+        [MaxLength(50)]
+        [Required]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
 
+        private DateTime registrationDate;
         [Column("registration_date")]
         [Required]
-        private DateTime registrationDate;
         public DateTime RegistrationDate
         {
             get { return registrationDate; }

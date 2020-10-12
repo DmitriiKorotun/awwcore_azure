@@ -10,8 +10,6 @@ namespace awwcore_azure.Database.Entities
     [Table("game_platforms")]
     public class GamePlatform
     {
-        [Column("game_id")]
-        [Required]
         private int gameId;
         public int GameId
         {
@@ -19,16 +17,13 @@ namespace awwcore_azure.Database.Entities
             set { gameId = value; }
         }
 
-        [Column("genre_id")]
-        [Required]
         private int platformId;
         public int PlatformId
         {
             get { return platformId; }
             set { platformId = value; }
         }
-
-        [ForeignKey("GameId")]
+       
         private Game game;
         public Game Game
         {
@@ -36,7 +31,6 @@ namespace awwcore_azure.Database.Entities
             set { game = value; }
         }
 
-        [ForeignKey("PlatformId")]
         private Platform platform;
         public Platform Platform
         {
