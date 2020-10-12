@@ -57,7 +57,7 @@ namespace awwcore_azure.Database
             {
                 for (int i = 0; i < rand.Next(1, 4); ++i)
                 {
-                    if (genres.Count < i)
+                    if (i < genres.Count)
                     {
                         GameGenre gameGenre = new GameGenre
                         {
@@ -84,7 +84,7 @@ namespace awwcore_azure.Database
             {
                 for (int i = 0; i < rand.Next(1, 4); ++i)
                 {
-                    if (platforms.Count < i)
+                    if (i < platforms.Count)
                     {
                         GamePlatform gamePlatform = new GamePlatform
                         {
@@ -345,6 +345,8 @@ namespace awwcore_azure.Database
             GeneratUsers();
             GenerateGames();
             GenerateReviews();
+            GenerateGameGenres();
+            GenerateGamePlatforms();
         }
     }
 }

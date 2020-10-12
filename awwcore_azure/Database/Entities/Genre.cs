@@ -27,5 +27,7 @@ namespace awwcore_azure.Database.Entities
             get { return name; }
             set { name = value; }
         }
+
+        public List<GameGenre> GameGenres { get; set; }
     }
 }

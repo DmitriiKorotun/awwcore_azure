@@ -27,5 +27,7 @@ namespace awwcore_azure.Database.Entities
             get { return name; }
             set { name = value; }
         }
+
+        public List<GamePlatform> GamePlatforms { get; set; }
     }
 }

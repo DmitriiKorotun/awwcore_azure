@@ -53,7 +53,9 @@ namespace awwcore_azure.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutReview(int id, Review review)
         {
-            if (id != review.ID)
+            if (id != review.ID || !_context.Games.Any(g => g.ID == review.GameId)
+                || !_context.Users.Any(u => u.ID == review.UserId)
+                || !_context.Languages.Any(l => l.ID == review.LanguageId))
             {
                 return BadRequest();
             }
@@ -83,6 +85,13 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Review>> PostReview(Review review)
         {
+            if (!_context.Games.Any(g => g.ID == review.GameId)
+    || !_context.Users.Any(u => u.ID == review.UserId)
+    || !_context.Languages.Any(l => l.ID == review.LanguageId))
+            {
+                return BadRequest();
+            }
+
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
 

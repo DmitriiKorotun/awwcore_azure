@@ -11,8 +11,6 @@ namespace awwcore_azure.Database.Entities
     public class GameGenre
     {
         private int gameId;
-        [Column("game_id")]
-        [Required]
         public int GameId
         {
             get { return gameId; }
@@ -20,8 +18,6 @@ namespace awwcore_azure.Database.Entities
         }
 
         private int genreId;
-        [Column("genre_id")]
-        [Required]
         public int GenreId
         {
             get { return genreId; }
@@ -29,7 +25,6 @@ namespace awwcore_azure.Database.Entities
         }
         
         private Game game;
-        [ForeignKey("GameId")]
         public Game Game
         {
             get { return game; }
@@ -37,7 +32,6 @@ namespace awwcore_azure.Database.Entities
         }
        
         private Genre genre;
-        [ForeignKey("GenreId")]
         public Genre Genre
         {
             get { return genre; }

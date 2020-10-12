@@ -47,16 +47,16 @@ namespace awwcore_azure.Controllers
             return GameGenre;
         }
 
-        // PUT: api/GameGenres/5,2
+        // PUT: api/GameGenres/5&2
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGameGenre(int gameId, int genreId, GameGenre GameGenre)
+        public async Task<IActionResult> PutGameGenre(int gameId, int genreId, GameGenre gameGenre)
         {
-            if (gameId != GameGenre.GameId || genreId != GameGenre.GenreId)
+            if (gameId != gameGenre.GameId || !_context.Genres.Any(p => p.ID == gameGenre.GenreId))
             {
                 return BadRequest();
             }
 
-            _context.Entry(GameGenre).State = EntityState.Modified;
+            _context.Entry(gameGenre).State = EntityState.Modified;
 
             try
             {
@@ -79,12 +79,18 @@ namespace awwcore_azure.Controllers
 
         // POST: api/GameGenres
         [HttpPost]
-        public async Task<ActionResult<GameGenre>> PostGameGenre(GameGenre GameGenre)
+        public async Task<ActionResult<GameGenre>> PostGameGenre(GameGenre gameGenre)
         {
-            _context.GameGenres.Add(GameGenre);
+            if (!_context.Genres.Any(p => p.ID == gameGenre.GenreId)
+    || !_context.Games.Any(g => g.ID == gameGenre.GameId))
+            {
+                return BadRequest();
+            }
+
+            _context.GameGenres.Add(gameGenre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGameGenres", new { gameId = GameGenre.GameId }, GameGenre);
+            return CreatedAtAction("GetGameGenres", new { gameId = gameGenre.GameId }, gameGenre);
         }
 
         // DELETE: api/GameGenres/5

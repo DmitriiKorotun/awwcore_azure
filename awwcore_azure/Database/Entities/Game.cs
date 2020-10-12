@@ -89,5 +89,8 @@ namespace awwcore_azure.Database.Entities
             get { return developer; }
             set { developer = value; }
         }
+
+        public List<GameGenre> GameGenres { get; set; }
+        public List<GamePlatform> GamePlatforms { get; set; }
     }
 }

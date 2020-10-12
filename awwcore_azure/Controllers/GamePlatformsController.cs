@@ -47,16 +47,16 @@ namespace awwcore_azure.Controllers
             return GamePlatform;
         }
 
-        // PUT: api/GamePlatforms/5,2
+        // PUT: api/GamePlatforms/5&2
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGamePlatform(int gameId, int platformId, GamePlatform GamePlatform)
+        public async Task<IActionResult> PutGamePlatform(int gameId, int platformId, GamePlatform gamePlatform)
         {
-            if (gameId != GamePlatform.GameId || platformId != GamePlatform.PlatformId)
+            if (gameId != gamePlatform.GameId || !_context.Platforms.Any(p => p.ID == gamePlatform.PlatformId))
             {
                 return BadRequest();
             }
 
-            _context.Entry(GamePlatform).State = EntityState.Modified;
+            _context.Entry(gamePlatform).State = EntityState.Modified;
 
             try
             {
@@ -79,12 +79,18 @@ namespace awwcore_azure.Controllers
 
         // POST: api/GamePlatforms
         [HttpPost]
-        public async Task<ActionResult<GamePlatform>> PostGamePlatform(GamePlatform GamePlatform)
+        public async Task<ActionResult<GamePlatform>> PostGamePlatform(GamePlatform gamePlatform)
         {
-            _context.GamePlatforms.Add(GamePlatform);
+            if (!_context.Platforms.Any(p => p.ID == gamePlatform.PlatformId)
+                || !_context.Games.Any(g => g.ID == gamePlatform.GameId))
+            {
+                return BadRequest();
+            }
+
+            _context.GamePlatforms.Add(gamePlatform);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGamePlatforms", new { gameId = GamePlatform.GameId }, GamePlatform);
+            return CreatedAtAction("GetGamePlatforms", new { gameId = gamePlatform.GameId }, gamePlatform);
         }
 
         // DELETE: api/GamePlatforms/5
