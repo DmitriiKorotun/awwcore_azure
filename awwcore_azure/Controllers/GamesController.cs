@@ -67,6 +67,9 @@ namespace awwcore_azure.Controllers
                 return BadRequest();
             }
 
+            game.Developer = null;
+            game.Publisher = null;
+
             _context.Entry(game).State = EntityState.Modified;
 
             try
@@ -74,7 +77,7 @@ namespace awwcore_azure.Controllers
                 _context.UpdateGameGenres(game);
                 _context.UpdateGamePlatforms(game);
             }
-            catch(ArgumentException)
+            catch (ArgumentException)
             {
                 return BadRequest();
             }
@@ -107,6 +110,9 @@ namespace awwcore_azure.Controllers
             {
                 return BadRequest();
             }
+
+            game.Developer = null;
+            game.Publisher = null;
 
             _context.Games.Add(game);
             await _context.SaveChangesAsync();

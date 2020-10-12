@@ -60,6 +60,10 @@ namespace awwcore_azure.Controllers
                 return BadRequest();
             }
 
+            review.Game = null;
+            review.User = null;
+            review.Language = null;
+
             _context.Entry(review).State = EntityState.Modified;
 
             try
@@ -91,6 +95,10 @@ namespace awwcore_azure.Controllers
             {
                 return BadRequest();
             }
+
+            review.Game = null;
+            review.User = null;
+            review.Language = null;
 
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
