@@ -69,34 +69,15 @@ namespace awwcore_azure.Controllers
 
             _context.Entry(game).State = EntityState.Modified;
 
-            int newItemsCount = game.GameGenres.Count;
-
-            _context.Games
-                .Include(x => x.GameGenres)
-                .FirstOrDefault(x => x.ID == game.ID);
-
-            int oldItemsCount = game.GameGenres.Count - newItemsCount;
-
-            for(int i = newItemsCount; i < newItemsCount + oldItemsCount; ++i)
-                _context.GameGenres.Remove(game.GameGenres[i]);
-
-            for (int i = 0; i < newItemsCount; ++i)
-                _context.GameGenres.Add(game.GameGenres[i]);
-
-            //_context.TryUpdateManyToMany(oldGame.GameGenres, game.GameGenres, x => x.GenreId);
-
-            //foreach (GameGenre gameGenre in _context.GameGenres.Where(gg => gg.GameId == game.ID).ToList())
-            //{
-            //    _context.Entry(gameGenre).State = EntityState.Deleted;
-            //}
-
-            //foreach (GameGenre gameGenre in game.GameGenres)
-            //{
-            //    if (_context.GameGenres.Any(gg => gg.GameId == gameGenre.GameId && gg.GenreId == gameGenre.GenreId))
-            //        _context.Entry(gameGenre).State = EntityState.Modified;
-            //    else
-            //        _context.Entry(gameGenre).State = EntityState.Added;
-            //}
+            try
+            {
+                _context.UpdateGameGenres(game);
+                _context.UpdateGamePlatforms(game);
+            }
+            catch(ArgumentException)
+            {
+                return BadRequest();
+            }
 
             try
             {
