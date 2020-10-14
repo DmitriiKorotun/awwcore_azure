@@ -51,8 +51,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 GamesController gamesController = new GamesController(context);
-                Game game = (await gamesController.GetGame(gameId)).Value;
-                ActionResult result = (await gamesController.GetGame(gameId)).Result;
+                var actionResult = await gamesController.GetGame(gameId);
+                Game game = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedGame, game));

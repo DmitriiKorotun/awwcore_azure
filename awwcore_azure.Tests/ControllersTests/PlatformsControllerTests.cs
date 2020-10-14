@@ -51,8 +51,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 PlatformsController platformsController = new PlatformsController(context);
-                Platform platform = (await platformsController.GetPlatform(platformId)).Value;
-                ActionResult result = (await platformsController.GetPlatform(platformId)).Result;
+                var actionResult = (await platformsController.GetPlatform(platformId));
+                Platform platform = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedPlatform, platform));

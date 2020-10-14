@@ -53,8 +53,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 PublishersController publishersController = new PublishersController(context);
-                Publisher publisher = (await publishersController.GetPublisher(publisherId)).Value;
-                ActionResult result = (await publishersController.GetPublisher(publisherId)).Result;
+                var actionResult = (await publishersController.GetPublisher(publisherId));
+                Publisher publisher = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedPublisher, publisher));

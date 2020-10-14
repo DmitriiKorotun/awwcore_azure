@@ -53,8 +53,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 DevelopersController developersController = new DevelopersController(context);
-                Developer developer = (await developersController.GetDeveloper(developerId)).Value;
-                ActionResult result = (await developersController.GetDeveloper(developerId)).Result;
+                var actionResult = (await developersController.GetDeveloper(developerId));
+                Developer developer = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedDeveloper, developer));

@@ -51,8 +51,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 GenresController genresController = new GenresController(context);
-                Genre genre = (await genresController.GetGenre(genreId)).Value;
-                ActionResult result = (await genresController.GetGenre(genreId)).Result;
+                var actionResult = (await genresController.GetGenre(genreId));
+                Genre genre = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedGenre, genre));
