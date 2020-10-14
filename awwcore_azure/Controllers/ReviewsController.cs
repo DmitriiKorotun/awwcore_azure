@@ -91,7 +91,9 @@ namespace awwcore_azure.Controllers
         {
             if (!_context.Games.Any(g => g.ID == review.GameId)
     || !_context.Users.Any(u => u.ID == review.UserId)
-    || !_context.Languages.Any(l => l.ID == review.LanguageId))
+    || !_context.Languages.Any(l => l.ID == review.LanguageId)
+    || review.ID < 0
+    || _context.Reviews.Any(r => r.ID == review.ID))
             {
                 return BadRequest();
             }

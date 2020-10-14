@@ -76,6 +76,9 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Platform>> PostPlatform(Platform platform)
         {
+            if (platform.ID < 0 || _context.Platforms.Any(p => p.ID == platform.ID))
+                return BadRequest();
+
             _context.Platforms.Add(platform);
             await _context.SaveChangesAsync();
 

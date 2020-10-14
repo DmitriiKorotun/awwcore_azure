@@ -106,7 +106,8 @@ namespace awwcore_azure.Controllers
         public async Task<ActionResult<Game>> PostGame(Game game)
         {
             if (!_context.Publishers.Any(p => p.ID == game.PublisherId)
-|| !_context.Developers.Any(d => d.ID == game.DeveloperId))
+|| !_context.Developers.Any(d => d.ID == game.DeveloperId) || game.ID < 0
+|| _context.Games.Any(g => g.ID == game.ID))
             {
                 return BadRequest();
             }

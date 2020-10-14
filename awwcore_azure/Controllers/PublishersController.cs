@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using awwcore_azure.Database.Entities;
 using awwcore_azure.Database.Interface;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace awwcore_azure.Controllers
 {
@@ -76,6 +77,9 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Publisher>> PostPublisher(Publisher publisher)
         {
+            if (publisher.ID < 0 || _context.Publishers.Any(p => p.ID == publisher.ID))
+                return BadRequest();
+
             _context.Publishers.Add(publisher);
             await _context.SaveChangesAsync();
 

@@ -76,6 +76,9 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Genre>> PostGenre(Genre genre)
         {
+            if (genre.ID < 0 || _context.Genres.Any(g => g.ID == genre.ID))
+                return BadRequest();
+
             _context.Genres.Add(genre);
             await _context.SaveChangesAsync();
 

@@ -9,6 +9,8 @@ namespace awwcore_azure.Database.Interface
 {
     public class GameReviewsContext : DbContext
     {
+        public GameReviewsContext()
+    : base() { }
         public GameReviewsContext(DbContextOptions<GameReviewsContext> options)
             : base(options) { }
 
@@ -56,8 +58,6 @@ namespace awwcore_azure.Database.Interface
     .HasOne(gp => gp.Platform)
     .WithMany(p => p.GamePlatforms)
     .HasForeignKey(y => y.PlatformId);
-
-
 
             base.OnModelCreating(modelBuilder);
         }
