@@ -51,8 +51,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 LanguagesController languagesController = new LanguagesController(context);
-                Language language = (await languagesController.GetLanguage(languageId)).Value;
-                ActionResult result = (await languagesController.GetLanguage(languageId)).Result;
+                var actionResult = (await languagesController.GetLanguage(languageId));
+                Language language = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedLanguage, language));

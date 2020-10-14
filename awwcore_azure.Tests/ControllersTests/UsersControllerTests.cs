@@ -53,8 +53,9 @@ namespace awwcore_azure.Tests.ControllersTests
             using (var context = new GameReviewsContext(options))
             {
                 UsersController usersController = new UsersController(context);
-                User user = (await usersController.GetUser(userId)).Value;
-                ActionResult result = (await usersController.GetUser(userId)).Result;
+                var actionResult = (await usersController.GetUser(userId));
+                User user = actionResult.Value;
+                ActionResult result = actionResult.Result;
 
                 // Assert              
                 Assert.True(AreEqual(expectedUser, user));
