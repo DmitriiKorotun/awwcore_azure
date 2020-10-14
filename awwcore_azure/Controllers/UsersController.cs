@@ -76,6 +76,9 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            if (user.ID < 0 || _context.Users.Any(u => u.ID == user.ID))
+                return BadRequest();
+
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 

@@ -17,11 +17,9 @@ namespace awwcore_azure.Controllers
     {
         private readonly GameReviewsContext _context;
 
-        public LanguagesController(GameReviewsContext context, DataGenerator dataGenerator)
+        public LanguagesController(GameReviewsContext context)
         {
             _context = context;
-
-            new DataGenerator(context).GenerateGenres();
         }
 
         // GET: api/Languages
@@ -79,6 +77,9 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Language>> PostLanguage(Language language)
         {
+            if (language.ID < 0 || _context.Languages.Any(l => l.ID == language.ID))
+                return BadRequest();
+
             _context.Languages.Add(language);
             await _context.SaveChangesAsync();
 

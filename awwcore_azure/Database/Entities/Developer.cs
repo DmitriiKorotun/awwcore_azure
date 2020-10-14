@@ -29,7 +29,7 @@ namespace awwcore_azure.Database.Entities
         }
        
         private string website;
-        [Column("website")]
+        [Column("website"), Required]
         [MaxLength(100)]
         public string Website
         {

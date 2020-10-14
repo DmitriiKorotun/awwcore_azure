@@ -76,6 +76,10 @@ namespace awwcore_azure.Controllers
         [HttpPost]
         public async Task<ActionResult<Developer>> PostDeveloper(Developer developer)
         {
+            if (_context.Developers.Where(d => d.ID == developer.ID).FirstOrDefault() != null || developer.ID < 0
+                || _context.Developers.Any(d => d.ID == developer.ID))
+                return BadRequest();
+
             _context.Developers.Add(developer);
             await _context.SaveChangesAsync();
 
